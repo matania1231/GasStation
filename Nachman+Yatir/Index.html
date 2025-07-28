@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
   <script src="./dist/index.js" defer></script>
   <link rel="stylesheet" href="./dist/style.css">
 </head>
+
 <body>
 
 
@@ -21,18 +23,20 @@
   </div>
 
 
-  <form class="custom-form">
-    <input type="text" name="name" placeholder="שם של המוצר" required>
-    <input type="text" name="price" placeholder="מחיר של המוצר" required>
-    <input type="text" name="quantity" placeholder="כמות של המוצר" required>
-    <input type="text" name="description" placeholder="תיאור המוצר" required>
+  <form class="customform">
+    <input type="text" name="name" placeholder="שם של המוצר" required onchange="handleNameChange(event)">
+    <input type="text" name="name" placeholder="מחיר של המוצר" required onchange="handlePriceChange(event)">
+    <input type="text" name="name" placeholder="כמות של המוצר" required onchange="handleQuantityChange(event)">
+    <input type="text" name="name" placeholder="תיאור של המוצר" required onchange="handleDescriptionChange(event)">
     <input type="file" name="image" accept="image/*" onchange="handleFileChange(event)" required>
     <button type="button" id="submitBtn">שלח</button>
   </form>
 
 
+
   <div class="products-container"></div>
-    <div id="cartRoot"></div>
+  <div id="cartRoot"></div>
 
 </body>
+
 </html>
