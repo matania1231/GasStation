@@ -54,7 +54,7 @@ function addProductToCart(product: Product): void {
     renderCart(cart.products);
 }
 
-function handelNameChange(ev: Event): void {
+function handleNameChange(ev: Event): void {
     try {
         const input = ev.target as HTMLInputElement;
         const newName = input.value;
@@ -69,7 +69,7 @@ function handelNameChange(ev: Event): void {
     }
 }
 
-function handelPriceChange(ev: Event): void {
+function handlePriceChange(ev: Event): void {
     try {
         const input = ev.target as HTMLInputElement;
         const newPrice = parseFloat(input.value);
@@ -84,7 +84,7 @@ function handelPriceChange(ev: Event): void {
     }
 }
 
-function handelQuantityChange(ev: Event): void {
+function handleQuantityChange(ev: Event): void {
     try {
         const input = ev.target as HTMLInputElement;
         const newQuantity = parseInt(input.value, 10);
@@ -99,7 +99,7 @@ function handelQuantityChange(ev: Event): void {
     }
 }
 
-function handelDescriptionChange(ev: Event): void {
+function handleDescriptionChange(ev: Event): void {
     try {
         const input = ev.target as HTMLInputElement;
         const newDescription = input.value;
