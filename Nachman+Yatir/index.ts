@@ -1,9 +1,10 @@
+
 interface Product { 
     name: string;
     price: number;
     quantity: number;
-    description: string; // Fixed typo: descrption -> description
-    image: string; // Fixed typo: imege -> image
+    description: string; 
+    image: string; 
 }
 
 interface Cart {
@@ -16,36 +17,56 @@ const cart: Cart = {
     totalPrice: 0
 };
 
-// Add a current product to track form inputs
+
 let currentProduct: Partial<Product> = {};
+
+
+
+
+function sortProductsByPrice(products: Product[], ascending: boolean = true): Product[] {
+    return [...products].sort((a, b) => {
+        return ascending ? a.price - b.price : b.price - a.price;
+    });
+}
 
 function htmlproudct(products: Product[], totalPrice: number): string {
     return `
         <div class="cart">
-            <h2>Cart</h2>
+            <h2>עגלת קניות</h2>
             ${products.map(product => `
                 <div class="product">
                     <h3>${product.name}</h3>
-                    <p>Price: $${product.price.toFixed(2)}</p>
-                    <p>Quantity: ${product.quantity}</p>
-                    <p>Description: ${product.description}</p>
-                    ${product.image ? `<img src="${product.image}" alt="Product named ${product.name} displayed in a shopping cart. Product description: ${product.description}. Price is ${product.price.toFixed(2)} dollars. Quantity is ${product.quantity}. The product is presented in a clean and organized online shopping environment." />` : ""}
+                    <p>מחיר: ₪${product.price.toFixed(2)}</p>
+                    <p>כמות: ${product.quantity}</p>
+                    <p>תיאור: ${product.description}</p>
+                    ${product.image ? `<img src="${product.image}" alt="${product.name}" style="max-width: 200px; height: auto;" />` : ""}
                 </div>
             `).join('')}
-            <h3>Total Price: $${totalPrice.toFixed(2)}</h3>
+            <h3>מחיר כולל: ₪${totalPrice.toFixed(2)}</h3>
         </div>
     `;
 }
 
 function renderCart(products: Product[]): void {
     try {
-        const cartRoot = document.getElementById("cartRoot"); // Fixed: was looking for wrong class name
+        const cartRoot = document.getElementById("cartRoot"); 
         if (!cartRoot) throw new Error("Cart root element not found");
 
-        cartRoot.innerHTML = htmlproudct(cart.products, cart.totalPrice);
+        cartRoot.innerHTML = htmlproudct(products, cart.totalPrice);
     } catch (error) {
         console.error("Error rendering cart:", error);
     }
+}
+
+
+
+
+let sortAscending = true;
+
+
+function sortAndRenderCart(ascending: boolean = true): void {
+    const sortedProducts = sortProductsByPrice(cart.products, ascending);
+    renderCart(sortedProducts);
 }
 
 function addProductToCart(product: Product): void {
@@ -63,7 +84,7 @@ function handleNameChange(ev: Event): void {
             throw new Error("Product name cannot be empty");
         }
 
-        currentProduct.name = newName; // Fixed: store in currentProduct instead of cart.products[0]
+        currentProduct.name = newName; 
     } catch (error) {
         console.error("Error handling name change:", error);
     }
@@ -78,7 +99,7 @@ function handlePriceChange(ev: Event): void {
             throw new Error("Invalid price");
         }
 
-        currentProduct.price = newPrice; // Fixed: store in currentProduct instead of cart.products[0]
+        currentProduct.price = newPrice; 
     } catch (error) {
         console.error("Error handling price change:", error);
     }
@@ -93,7 +114,7 @@ function handleQuantityChange(ev: Event): void {
             throw new Error("Invalid quantity");
         }
 
-        currentProduct.quantity = newQuantity; // Fixed: store in currentProduct instead of cart.products[0]
+        currentProduct.quantity = newQuantity; 
     } catch (error) {
         console.error("Error handling quantity change:", error);
     }
@@ -108,7 +129,7 @@ function handleDescriptionChange(ev: Event): void {
             throw new Error("Product description cannot be empty");
         }
 
-        currentProduct.description = newDescription; // Fixed: store in currentProduct instead of cart.products[0]
+        currentProduct.description = newDescription; 
     } catch (error) {
         console.error("Error handling description change:", error);
     }
@@ -120,13 +141,13 @@ function handleFileChange(event: Event): void {
         const file = input.files[0];
         const reader = new FileReader();
         reader.onload = function (e) {
-            currentProduct.image = e.target?.result as string; // Fixed: store in currentProduct instead of cart.products[0]
+            currentProduct.image = e.target?.result as string; 
         };
         reader.readAsDataURL(file);
     }
 }
 
-// Added: Submit function to add currentProduct to cart
+
 function submitProduct(): void {
     try {
         if (!currentProduct.name || !currentProduct.price || !currentProduct.quantity || !currentProduct.description) {
@@ -142,9 +163,9 @@ function submitProduct(): void {
         };
 
         addProductToCart(product);
-        currentProduct = {}; // Reset current product
+        currentProduct = {}; 
         
-        // Reset form
+    
         const form = document.querySelector('.customform') as HTMLFormElement;
         if (form) form.reset();
         
@@ -153,13 +174,31 @@ function submitProduct(): void {
     }
 }
 
-// Added: Initialize event listeners when DOM is ready
+
+(window as any).sortAndRenderCart = sortAndRenderCart;
+
+
+(window as any).sortAndRenderCart = sortAndRenderCart;
+
+
 document.addEventListener('DOMContentLoaded', function() {
     renderCart(cart.products);
     
     const submitBtn = document.getElementById('submitBtn');
     if (submitBtn) {
         submitBtn.addEventListener('click', submitProduct);
+    }
+    
+    
+    const sortBtn = document.getElementById('sortByPrice');
+    if (sortBtn) {
+        sortBtn.addEventListener('click', function() {
+            sortAndRenderCart(sortAscending);
+            sortAscending = !sortAscending; 
+            
+            
+            sortBtn.textContent = sortAscending ? 'מיין מזול ליקר' : 'מיין מיקר לזול';
+        });
     }
 });
 
