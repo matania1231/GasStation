@@ -1,8 +1,8 @@
 body {
   margin: 0;
   height: 100%;
-  background-image: url("./dist/Gas.webp");
-  background-size: cover;
+  background-image: url(".//Gas.webp");
+  background-size: 225vh;
   background-position: center;
   background-repeat: no-repeat;
   font-family: Arial, sans-serif;
