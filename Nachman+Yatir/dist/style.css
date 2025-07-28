@@ -1,7 +1,7 @@
 body {
   margin: 0;
   height: 100%;
-  background-image: url(".//Gas.webp");
+  background-image: url("Gas.webp");
   background-size: 225vh;
   background-position: center;
   background-repeat: no-repeat;
@@ -100,4 +100,23 @@ body {
 .product-card .product-quantity {
   color: #555;
   font-size: 0.9rem;
+}
+.product-card .sort-buttons {
+  display: flex;
+  margin: 20px;
+  gap: 10px;
+  justify-content: center;
+}
+.product-card .sort-buttons button {
+  padding: 10px 20px;
+  background-color: #333;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+.product-card .sort-buttons button:hover {
+  background-color: #555;
 }
